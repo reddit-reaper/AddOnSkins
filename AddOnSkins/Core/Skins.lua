@@ -5,6 +5,7 @@ local tremove, unpack, next, ipairs, pairs = tremove, unpack, next, ipairs, pair
 local abs, min, max, floor = abs, min, max, floor
 local strlower, strfind, type = strlower, strfind, type
 local hooksecurefunc = hooksecurefunc
+local issecretvalue = issecretvalue
 
 local GetPhysicalScreenSize = GetPhysicalScreenSize
 local CopyTable = CopyTable
@@ -1440,9 +1441,7 @@ end
 function S:HandleIcon(icon, backdrop, frameLevel)
 	icon:SetTexCoord(unpack(Media.TexCoords))
 
-	if icon:GetDrawLayer() ~= 'ARTWORK' then
-		icon:SetDrawLayer('ARTWORK')
-	end
+	icon:SetDrawLayer('ARTWORK')
 
 	S:DisablePixelSnap(icon)
 
@@ -1627,13 +1626,19 @@ function S:CleanTexture(Object, Kill, Alpha)
 	end
 end
 
+local function TextureMatches(texture, match)
+	return type(texture) == 'string' and (not issecretvalue or not issecretvalue(texture)) and strlower(texture) == strlower(match)
+end
+
 function S:StripTexture(Object, Texture, Kill, Alpha)
-	if Object:IsObjectType('Texture') and type(Object:GetTexture()) == 'string' and strlower(Object:GetTexture()) == strlower(Texture) then
+	local objectTexture = Object:IsObjectType('Texture') and Object:GetTexture()
+	if TextureMatches(objectTexture, Texture) then
 		S:CleanTexture(Object, Kill, Alpha)
 	else
 		if Object.GetNumRegions then
 			for _, Region in next, { Object:GetRegions() } do
-				if Region and Region:IsObjectType('Texture') and type(Region:GetTexture()) == 'string' and strlower(Region:GetTexture()) == strlower(Texture) then
+				local regionTexture = Region and Region:IsObjectType('Texture') and Region:GetTexture()
+				if TextureMatches(regionTexture, Texture) then
 					S:CleanTexture(Region, Kill, Alpha)
 				end
 			end

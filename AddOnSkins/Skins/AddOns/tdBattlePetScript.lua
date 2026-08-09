@@ -10,10 +10,11 @@ function R:tdBattlePetScript()
 		if frame:IsObjectType("Frame") then
 			for j = 1, frame:GetNumRegions() do
 				local region = select(j, frame:GetRegions())
-				if region.GetTexture and region:GetTexture() and type(region:GetTexture() == "string") then
-					if strfind(strlower(region:GetTexture()), "ui%-background%-marble") then
+				local texture = region.GetTexture and region:GetTexture()
+				if type(texture) == "string" and (not issecretvalue or not issecretvalue(texture)) then
+					if strfind(strlower(texture), "ui%-background%-marble") then
 						S:StripTextures(frame)
-					elseif strfind(strlower(region:GetTexture()), "ui%-panel%-minimizebutton") then
+					elseif strfind(strlower(texture), "ui%-panel%-minimizebutton") then
 						S:HandleCloseButton(frame)
 					end
 				end
