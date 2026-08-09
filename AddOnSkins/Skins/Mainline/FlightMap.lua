@@ -5,7 +5,7 @@ local _G = _G
 function R:Blizzard_FlightMap()
 	if not AS:IsSkinEnabled('Blizzard_FlightMap', 'taxi') then return end
 
-	S:HandlePortraitFrame(_G.FlightMapFrame)
+	S:HandlePortraitFrame(_G.FlightMapFrame.BorderFrame)
 end
 
 AS:RegisterSkin('Blizzard_FlightMap', nil, 'ADDON_LOADED')
