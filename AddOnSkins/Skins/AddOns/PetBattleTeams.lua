@@ -1,7 +1,7 @@
 local AS, L, S, R = unpack(AddOnSkins)
 
 function R:PetBattleTeams()
-	LoadAddOn('Blizzard_PetJournal')
+	C_AddOns.LoadAddOn('Blizzard_PetJournal')
 	local PBT = LibStub("AceAddon-3.0"):GetAddon("PetBattleTeams"):GetModule("GUI")
 
 	local function SkinPBT()

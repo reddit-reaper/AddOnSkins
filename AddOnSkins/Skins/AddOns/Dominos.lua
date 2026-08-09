@@ -61,7 +61,7 @@ function R:Dominos()
 		button:SetNormalTexture("")
 
 		if flash then
-			flash:SetTexture(0.8, 0.8, 0.8, 0.5)
+			flash:SetColorTexture(0.8, 0.8, 0.8, 0.5)
 			S:SetOutside(flash, button, 2, 2)
 		end
 
@@ -93,21 +93,27 @@ function R:Dominos()
 		end
 	end
 
-	hooksecurefunc("ActionButton_Update", StyleNormalButton)
+	local function StyleAndHookNormalButton(button)
+		if not button then return end
+		if button.Update then
+			hooksecurefunc(button, "Update", StyleNormalButton)
+		end
+		StyleNormalButton(button)
+	end
 
 	do
 		for i = 1, 60 do
 			if _G["DominosActionButton"..i] then
-				ActionButton_Update(_G["DominosActionButton"..i])
+				StyleAndHookNormalButton(_G["DominosActionButton"..i])
 			end
 		end
 
 		for i = 1, 12 do
-			ActionButton_Update(_G["ActionButton"..i])
-			ActionButton_Update(_G["MultiBarBottomLeftButton"..i])
-			ActionButton_Update(_G["MultiBarBottomRightButton"..i])
-			ActionButton_Update(_G["MultiBarLeftButton"..i])
-			ActionButton_Update(_G["MultiBarRightButton"..i])
+			StyleAndHookNormalButton(_G["ActionButton"..i])
+			StyleAndHookNormalButton(_G["MultiBarBottomLeftButton"..i])
+			StyleAndHookNormalButton(_G["MultiBarBottomRightButton"..i])
+			StyleAndHookNormalButton(_G["MultiBarLeftButton"..i])
+			StyleAndHookNormalButton(_G["MultiBarRightButton"..i])
 		end
 
 		for i = 1, NUM_STANCE_SLOTS do

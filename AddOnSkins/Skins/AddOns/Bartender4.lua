@@ -33,7 +33,7 @@ function R:Bartender4()
 		end
 
 		if Btname and Normal then
-			local String = Action and GetActionText(Action)
+			local String = Action and C_ActionBar.GetActionText(Action)
 
 			if String then
 				local Text = string.sub(String, 1, 5)
@@ -66,8 +66,8 @@ function R:Bartender4()
 			Normal:SetPoint("TOPLEFT")
 			Normal:SetPoint("BOTTOMRIGHT")
 
-			if (Button:GetChecked()) then
-				ActionButton_UpdateState(Button)
+			if (Button:GetChecked() and Button.UpdateState) then
+				Button:UpdateState()
 			end
 		end
 

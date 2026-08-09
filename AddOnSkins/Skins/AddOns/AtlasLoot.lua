@@ -6,8 +6,8 @@ function R:AtlasLoot(event, addon)
 		local Link = select(2, self:GetItem())
 		local Quality = Link and select(3, GetItemInfo(Link))
 		if (Quality and Quality >= 2) then
-			R, G, B = GetItemQualityColor(Quality)
-			self:SetBackdropBorderColor(R, G, B)
+			local r, g, b = GetItemQualityColor(Quality)
+			self:SetBackdropBorderColor(r, g, b)
 		else
 			self:SetBackdropBorderColor(unpack(AS.BorderColor))
 		end

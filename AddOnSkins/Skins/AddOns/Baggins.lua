@@ -82,13 +82,15 @@ function R:Baggins()
 	hooksecurefunc(Baggins, "UpdateItemButton", function(self, _, button, bag, slot)
 		local p = self.db.profile
 		if p.skin and p.skin == 'AddOnSkins' then
-			local texture, _, _, quality = GetContainerItemInfo(bag, slot)
-			local link = GetContainerItemLink(bag, slot)
+			local itemInfo = C_Container.GetContainerItemInfo(bag, slot)
+			local texture = itemInfo and itemInfo.iconFileID
+			local quality = itemInfo and itemInfo.quality
+			local link = itemInfo and itemInfo.hyperlink
 			if link then
 				local qual = select(3, GetItemInfo(link))
 				quality = qual or quality
 			end
-			if p.qualitycolor and texture and quality >= p.qualitycolormin then
+			if p.qualitycolor and texture and quality and quality >= p.qualitycolormin then
 				local r, g, b = GetItemQualityColor(quality)
 				local glowTexture = button.glow:GetTexture()
 				if glowTexture ~= TEXTURE_ITEM_QUEST_BANG and glowTexture ~= TEXTURE_ITEM_QUEST_BORDER then

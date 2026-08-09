@@ -19,4 +19,4 @@ function R:LightHeaded()
 	LightHeadedFrameSub.title:SetTextColor(23 / 255, 132 / 255, 209 / 255)
 end
 
-AS:RegisterSkin('Lightheaded')
+AS:RegisterSkin('Lightheaded', R.LightHeaded)

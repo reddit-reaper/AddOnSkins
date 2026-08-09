@@ -1,5 +1,5 @@
 local AS, L, S, R = unpack(AddOnSkins)
-local E = unpack(ElvUI)
+local E = _G.ElvUI and unpack(_G.ElvUI)
 
 -- Credits: Simpy
 local _G = _G
