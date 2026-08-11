@@ -16,4 +16,5 @@ Embed\Load_Embed.xml
 
 Skins\AddOns\Load_Skins.xml
 Skins\Mainline\FlightMap.lua
+Skins\Mainline\ChromieTime.lua
 # Skins\Mainline\Load_Skins.xml
